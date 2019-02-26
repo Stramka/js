@@ -1,0 +1,37 @@
+git<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        Tytul <input type="text" id="title"> <br>
+        Tresc: <textarea id="content"></textarea><br>
+        <button id="newNote">Dodaj</button>
+    </form>
+    <main>
+
+
+    </main>
+<script type="text/javascript">
+    let btnSubmit = document.querySelector('#newNote');
+    btnSubmit.addEventListener('click', function(e){
+        console.log(e);
+        
+    let title = document.querySelector('#title').value;
+    let content= document.querySelector('#content').value;
+    let newNote = document.createElement('div');
+    newNote.innerHTML = `<h2>${title}</h2>
+                        <section>${content}</section>`
+
+    let notesContainer = document.querySelector('main');
+    notesContainer.appendChild(newNote)
+    e.preventDefault();
+})
+
+</script>
+</body>
+</html>

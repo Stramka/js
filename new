@@ -16,6 +16,7 @@ class Note  {
     constructor (title, content) {
     this.title = title
     this.content = content
+    this.date = Date.now();
 }
 }
 
@@ -31,13 +32,21 @@ newNote.classList.add('note');
 newNote.innerHTML = `
 <i class="fas fa-times"></i>
 <h2>${note.title}</h2>
-                    <section>${note.content}</section>`
+<section>${note.content}</section>
+<div>${note.date}</div>
+                    `
 console.dir (newNote)
 const notesContainer = document.querySelector('main');
 notesContainer.appendChild(newNote)
 e.preventDefault();
 title.value = '';
 content.value = '';
+}
+
+function removeDibeNote() {
+    const noteDive = this.parentElement
+    const notesContainer = noteDiv.parentElement
+    notesCointainer.removeChild(noteDive)
 }
 
 })

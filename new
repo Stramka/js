@@ -1,1 +1,43 @@
 
+
+document.addEventListener ('DOMContentLoaded', function() {
+const btnSubmit = document.querySelector('#newNote');
+btnSubmit.addEventListener('click', addNewNote);
+
+function addNewNote(e){
+    console.log(e);
+    
+const title = document.querySelector('#title')
+const content= document.querySelector('#content')
+const newNote = document.createElement('div');
+const notes = [];
+
+class Note  {
+    constructor (title, content) {
+    this.title = title
+    this.content = content
+}
+}
+
+const note = new Note (title.value, content.value)
+
+notes.push(note)
+localStorage.setItem('notes', JSON.stringify(notes))
+
+localStorage.setItem('notes',JSON.stringify(notes))
+
+newNote.classList.add('note');
+
+newNote.innerHTML = `
+<i class="fas fa-times"></i>
+<h2>${note.title}</h2>
+                    <section>${note.content}</section>`
+console.dir (newNote)
+const notesContainer = document.querySelector('main');
+notesContainer.appendChild(newNote)
+e.preventDefault();
+title.value = '';
+content.value = '';
+}
+
+})

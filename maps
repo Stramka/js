@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      let position = {lat: 50, lng: 19}
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: position,
+          zoom: 15
+        });
+        
+        getCurrentLocation()
+
+        var marker = 
+        new google.maps.Marker({position: position,
+                                map: map,
+                                animation : google.maps.Animation.DROP});
+
+        function getCurrentLocation() {
+             navigator.geolocation.getCurrentPosition(geoOk,geoFail)
+                }
+        function geoOk(data) {
+            let latitude = data.coords.latitude;
+            let long = data.coords.longitude;
+            marker.setPosition({lat: latitude,
+                                    lng: long });
+           showMyFriends(latitude,long ) ;
+            
+        }
+        function geoFail(err) {
+            console.log(err);
+        }
+
+        function showMyFriends(lat, longer) {
+            let latTab = [];
+            let longTab = [];
+
+            for (var i = 0; i<10; i++) {
+                    let rand1 = Math.random()/10 - 0.05 + lat
+                    let rand2 = Math.random()/10 - 0.05 + longer
+                    latTab.push(rand1)
+                    longTab.push(rand2)
+            }
+
+            console.log(latTab);
+            console.log(longTab);
+
+            for (var i = 0; i<10; i++) {
+                var marker2 = 
+                new google.maps.Marker({position: {lat: latTab[i], lng: longTab[i]},
+                                map: map,
+                                animation : google.maps.Animation.DROP});
+            }
+            
+        }
+
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC3oc1OOMd22IA69ls27EgflSovZph1k7M&callback=initMap"
+    async defer></script>
+  </body>
+</html>

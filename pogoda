@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pogoda</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="cssPogoda.css">
+</head>
+<body>
+<div>
+ 
+ <label for="miasto"> Podaj Miasto:</label>
+ <input type="text" id="miasto">
+ <button id="btnMiasto">Dodaj</button>
+</div>
+
+<main>
+
+ </main>
+</body>
+</html>
+
+
+_____________________________________
+
+//console.log("kakaak");
+
+const apiKey = '50d53005c0fd5f556bb4ef15224c4209'
+//http://api.openweathermap.org/data/2.5/weather?q=CITY&APPID=KLUCZ
+
+
+document.addEventListener('DOMContentLoaded', appStart)
+
+function appStart() {
+    document
+        .querySelector('#btnMiasto')
+        .addEventListener('click', btnMiastoClick)
+
+}
+
+function btnMiastoClick() {
+    const miasto = document.querySelector('#miasto').value
+    pobierzPogode(miasto)
+}
+
+function pobierzPogode(miasto) {
+    const apiURL =`http://api.openweathermap.org/data/2.5/weather?q=${miasto}&APPID=${apiKey}`
+    const pogoda = fetch(apiURL)
+    console.log(pogoda);
+    pogoda
+    .then(
+        (resp) => {console.log("obietnica spelniona", resp);
+        return resp.json()
+        },
+        (resp) => {console.log('obietnica niespelniona', resp);
+        }
+    )
+    .then( resp => {
+        console.log(resp);
+        
+    }
+
+    )
+    
+}

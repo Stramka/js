@@ -1,0 +1,96 @@
+<h2>Nowa notatka</h2>
+<form [formGroup]="noteForm">
+<div id="form">
+<label for="t">Tytul</label>
+<input type="text" id="t" formControlName="title">
+<label for="c">Tresc</label>
+<textarea  id="c" cols="30" rows="10" formControlName="content"></textarea>
+<button [disabled]="noteForm.invalid" (click)="onBtnDodajClick()">Dodaj notatke</button>
+
+</div>
+</form>
+
+ts
+
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Note } from '../note.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
+})
+export class FormComponent implements OnInit {
+
+  @Output() nowaNotatka: EventEmitter<Note> = new EventEmitter()
+
+  note: Note;
+
+  constructor(private fb: FormBuilder) {  }
+
+noteForm: FormGroup;
+
+
+  onBtnDodajClick() {
+if (this.noteForm.valid) {
+    const note: Note = this.noteForm.value
+    note.notedate = Date.now()
+    this.nowaNotatka.emit(note)
+
+  }}
+
+  ngOnInit() {
+    this.noteForm = this.fb.group({
+      'title': ['test tyt', Validators.required],
+      'content': ['',Validators.required],
+    })
+    //this.noteForm.valueChanges.subscribe(ret => {console.log(ret)})
+  }
+
+}
+
+___________________________________
+
+#form {
+display : flex;
+flex-direction: column;
+width: 300px;
+margin: 20px
+}
+___________________________________________________________
+app models
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppComponent } from './app.component';
+import { FormComponent } from './form/form.component';
+import { NoteComponent } from './note/note.component';
+import {ReactiveFormsModule, FormBuilder} from '@angular/forms'
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+
+@ NgModule({
+  declarations: [
+    AppComponent,
+    FormComponent,
+    NoteComponent
+  ],
+  imports: [
+    BrowserModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatInputModule
+  ],
+  providers: [
+    FormBuilder
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+______________________________________
+app com scss
+
+

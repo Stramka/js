@@ -1,0 +1,45 @@
+html
+
+<h2>Nowa notatka</h2>
+<div id="form">
+<label for="t">Tytul</label>
+<input type="text" id="t" #title>
+<label for="c">Tresc</label>
+<textarea  id="c" cols="30" rows="10" #content></textarea>
+<button (click)="onBtnDodajClick(title.value, content.value)">Dodaj notatke</button>
+
+</div>
+
+
+ts.
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Note } from '../note.model';
+
+@Component({
+  selector: 'app-form',
+  templateUrl: './form.component.html',
+  styleUrls: ['./form.component.scss']
+})
+export class FormComponent implements OnInit {
+
+  @Output() nowaNotatka: EventEmitter<Note> = new EventEmitter()
+
+  note: Note;
+
+  constructor() {  }
+
+
+  onBtnDodajClick(title:string, content:string) {
+    const note = new Note()
+    note.title = title;
+    note.content = content;
+    note.notedate = Date.now();
+
+    this.nowaNotatka.emit(note)
+    console.log(note)
+  }
+
+  ngOnInit() {
+  }
+
+}

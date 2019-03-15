@@ -1,0 +1,158 @@
+Funkcjonalności
+    1. Wyświetla listę filmów
+    2. Pozwala wyszukać filmy w zewnętrznym serwisie (np. z ostatniego roku)
+    3. Z wyszukanych filmów można dodać film do listy w aplikacji
+    4. Wyświetla szczegóły filmu
+    5. Pozwala edytować/usuwać film
+
+Menu:
+    strona główna
+    dodaj film
+    wyszukaj film
+    lista filmów
+
+Strona główna:
+Ostatnie dodane 10 filmów (material card)
+
+Dodaj film
+    formularz nowego filmu
+
+Wyszukaj film
+    wyszukiwarka filmów podpięta do zewnętrznego api z możliwością dodania filmu
+
+Lista filmów
+    Lista z możliwością przejścia do edycji/usuwania konkretnego filmu
+
+Model filmu: 
+class Film {
+ tytuł: string,
+ premiera: number,
+ produkcja: string,
+ gatunek: string[],
+ rezyser: string,
+ aktorzy: string[]
+ ocena: number
+}
+
+
+______________________
+film models
+
+export class Film{
+    tytul: string;
+    premiera: number;
+    produkcja: string;
+    gatunek: string;
+    rezyser: string;
+    aktorzy: string;
+    ocena: number
+ }
+__________________________
+app comp html
+
+ <h1>
+  Films Library
+</h1>
+<app-homepage >  </app-homepage>
+
+______________________________
+
+homepage html
+
+<h1>  Main </h1>
+
+<app-film *ngFor="let f of filmsArray" [film] ='f'></app-film>
+
+__________________________________
+comp ts homeage
+
+
+import { Component, OnInit } from '@angular/core';
+import { Film } from '../film.model';
+
+@ Component({
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.sass']
+})
+export class HomepageComponent implements OnInit {
+
+  filmsArray = [ 'ja', 'zelary'
+
+  ]
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+  
+  ___________________________
+  
+ <h1>{{film.tytul}} <h1>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{film.tytul}}</mat-card-title>
+    <mat-card-subtitle>{{film.premiera}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Ok</button>
+  </mat-card-actions>
+</mat-card>
+  
+  __________________________
+  
+ import { Component, OnInit } from '@angular/core';
+import { Film } from '../film.model';
+
+@ Component({
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.sass']
+})
+export class HomepageComponent implements OnInit {
+
+  filmsArray: Film[] = [
+    {
+      tytul: 'zelary',
+      premiera: 2002,
+      produkcja: 'czech',
+      gatunek: 'gat',
+      rezyser: 'matt',
+      aktorzy: 'anna',
+      ocena: 10
+    },
+    {
+      tytul: 'zelary2',
+      premiera: 2010,
+      produkcja: 'czech',
+      gatunek: 'gat',
+      rezyser: 'matt',
+      aktorzy: 'anna',
+      ocena: 10
+    },
+
+    {
+      tytul: 'muzykant',
+      premiera: 2019,
+      produkcja: 'czech',
+      gatunek: 'gat',
+      rezyser: 'matt',
+      aktorzy: 'anna',
+      ocena: 10
+    }
+
+  ]
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
+
+
+
+

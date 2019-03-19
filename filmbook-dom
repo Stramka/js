@@ -1,0 +1,301 @@
+główne styles.scss
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+________________________________________________________________________________
+
+film.model.ts
+
+export class Film {
+  tytul: string;
+  premiera: number;
+  produkcja: string;
+  gatunek: string[];
+  rezyser: string;
+  aktorzy: string[];
+  ocena: number;
+ }
+ 
+ ______________________________________________________________________________
+ 
+ index.html
+ 
+ <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>filmbook</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <app-root></app-root>
+</body>
+</html>
+
+____________________________________________________________________________
+
+app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { FilmComponent } from './film/film.component';
+import { HomepageComponent } from './homepage/homepage.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button'
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    FilmComponent,
+    HomepageComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+_____________________________________________________________
+app.components.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent {
+  title = 'filmbook';
+}
+___________________________________________________
+app.component.html
+
+<h1>
+    Biblioteka
+  </h1>
+  <app-homepage >  </app-homepage>
+  
+______________________________________________________
+
+homepage.compnent html
+<h3>Wyszukiwarka książek</h3>
+<form class="example-form">
+
+    <mat-form-field class="example-full-width">
+      <input matInput #message maxlength="256" placeholder="Tytuł">
+      <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" (click)="onBtnDodajClick(message.value)">Szukaj</button>
+  </form>
+
+
+<app-film *ngFor="let f of filmsArray" [film] ='f'></app-film>
+_________________________________________________________________________
+
+homepage ts
+
+
+import { Component, OnInit, Input } from '@angular/core';
+import { Film } from 'src/film.model';
+
+@Component({
+  selector: 'app-homepage',
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.scss']
+})
+
+
+export class HomepageComponent implements OnInit {
+
+  constructor() { }
+
+  filmsArray: Film[] = [
+    {
+      tytul: 'Zelary',
+      premiera: 2003,
+      produkcja: 'Czechy',
+      gatunek: ['dramat', 'melodramat'],
+      rezyser: 'Ondřej Trojan',
+      aktorzy: ['Anna Geislerová','György Cserhalmi', 'Jaroslava Adamová'],
+      ocena: 10
+    },
+    {
+      tytul: 'Brave',
+      premiera: 2012,
+      produkcja: 'USA',
+      gatunek: ['Animacja', 'Familijny', 'Przygodowy'],
+      rezyser: 'Mark Andrews',
+      aktorzy: [],
+      ocena: 10
+    },
+
+    {
+      tytul: 'Braveheart',
+      premiera: 1995,
+      produkcja: 'USA',
+      gatunek: ['Dramat historyczny'],
+      rezyser: 'Mel Gibson',
+      aktorzy: ['Mel Gibson', 'Sophie Marceau', 'Patrick McGoohan'],
+      ocena: 10
+    },
+
+    {
+      tytul: 'Into the Wild',
+      premiera: 2007,
+      produkcja: 'USA',
+      gatunek: ['Biograficzny', 'Dramat', 'Przygodowy'],
+      rezyser: 'Sean Penn',
+      aktorzy: ['Emile Hirsch', 'Vince Vaughn', 'Catherine Keener'],
+      ocena: 10
+    },
+
+    {
+      tytul: 'The Shawshank Redemption',
+      premiera: 1994,
+      produkcja: 'USA',
+      gatunek: ['Dramat'],
+      rezyser: 'Frank Darabont',
+      aktorzy: ['Tim Robbins', 'Morgan Freeman', 'Bob Gunton'],
+      ocena: 10
+    },
+
+    {
+      tytul: 'Mulan',
+      premiera: 1998,
+      produkcja: 'USA',
+      gatunek: [	'Animacja', 'Familijny', 'Przygodowy'],
+      rezyser: 'Tony Bancroft',
+      aktorzy: [],
+      ocena: 10
+    },
+
+    {
+      tytul: 'Hotaru no Haka',
+      premiera: 1988,
+      produkcja: 'Japonia',
+      gatunek: ['Dramat', 'Anime'],
+      rezyser: 'Isao Takahata',
+      aktorzy: [],
+      ocena: 10
+    },
+    {
+      tytul: 'A Beautiful Mind',
+      premiera: 2001,
+      produkcja: 'USA',
+      gatunek: ['Biograficzny', 'Dramat'],
+      rezyser: 'Ron Howard',
+      aktorzy: ['Russell Crowe', 'Jennifer Connelly', 'Ed Harris'],
+      ocena: 10
+    },
+    {
+      tytul: "Schindler's List",
+      premiera: 1993,
+      produkcja: 'USA',
+      gatunek: ['Dramat', 'Wojenny'],
+      rezyser: 'Steven Spielberg',
+      aktorzy: ['Liam Neeson', 'Ben Kingsley', 'Ralph Fiennes'],
+      ocena: 10
+    },
+    {
+      tytul: 'Bogowie',
+      premiera: 2014,
+      produkcja: 'Polska',
+      gatunek: ['Biograficzny', 'Dramat'],
+      rezyser: 'Łukasz Palkowski',
+      aktorzy: ['ETomasz Kot', 'Piotr Głowacki', 'Magdalena Czerwińska'],
+      ocena: 10
+    }
+]
+
+booking = ''
+
+onBtnDodajClick(message: string) {
+const mess = message
+  console.log(mess)
+}
+
+
+
+
+  ngOnInit() {
+
+  }
+
+}
+
+_______________________________________________
+
+homepage scss
+button {
+  margin: 1cm
+}
+
+____________________________________________
+film html
+
+<mat-card id="mainDiv">
+    <mat-card-header id="card">
+      <mat-card-title>
+       <i><b>{{ film.tytul }}</b></i>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <b>Premiera:</b> {{ film.premiera }}, {{ film.produkcja }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <div id="ocena"><b>Ocena:</b> {{ film.ocena }}</div>
+    <mat-card-content id="card">
+      <div class="gatunki" id="card"><b>Gatunek:</b>
+        <ul>
+          <li *ngFor="let g of film.gatunek">{{ g }}</li>
+        </ul>
+      </div>
+      <div id="rezyser" id="card"><b>Reżyser: </b>{{ film.rezyser }}</div>
+      <div class="aktorzy" id="card"><b>Aktorzy:</b>
+        <ul>
+          <li *ngFor="let a of film.aktorzy">{{ a }}</li>
+        </ul>
+      </div>
+    </mat-card-content>
+    <mat-card-actions id="card">
+      <button mat-button>LIKE</button>
+      <button mat-button>SHARE</button>
+    </mat-card-actions>
+  </mat-card>
+
+ ___________________________________________________
+ 
+ film ts
+ 
+ import { Component, OnInit, Input } from '@angular/core';
+import { Film } from 'src/film.model';
+
+
+@Component({
+  selector: 'app-film',
+  templateUrl: './film.component.html',
+  styleUrls: ['./film.component.scss']
+})
+export class FilmComponent implements OnInit {
+  @Input() film: Film
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}
